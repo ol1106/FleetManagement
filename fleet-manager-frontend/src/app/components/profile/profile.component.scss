@@ -1,0 +1,94 @@
+#profile-left{
+    float:left;
+    width:30%;
+    margin-left:30px;
+    height: 85vh;
+}
+
+#profile-right{
+    float:right;
+    width:60%;
+    height:85vh;
+    margin-right: 30px;
+}
+mat-card-title{
+    text-align: center;
+}
+
+#profile-picture-noPhoto{
+    border-radius: 100%;
+    width:200px;
+    height: 200px;
+    margin:0 auto;
+    background-image: url("../../../assets/images/noprofile.png");
+    background-size:210px 222px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+#profile-picture{
+    border-radius: 100%;
+    width:200px;
+    height: 200px;
+    margin:0 auto;
+    padding:0;
+}
+
+#edit-profile-picture{
+    position: absolute;
+    float:right;
+    top:0;
+    right:-5px;
+}
+#edit-info{
+    float:right;
+    bottom: 25px;
+    right:45px;
+    position: absolute;
+}
+
+#list-left{
+    float: left;
+    width:50%;
+    margin-bottom: 50px;
+}
+#list-left mat-divider{
+    width:40%;
+    float: left;
+}
+#list-right{
+    float: right;
+    width:50%;
+    margin-bottom: 50px;
+}
+#list-right mat-divider{
+    width:40%;
+    left:50%;
+}
+.description-field{
+    width: 100%;
+    
+}
+.description-field-edit{
+    width: 70%;
+    top:-30px;
+}
+h2{
+    text-align: center;
+}
+h3{
+    width:100%;
+    text-align: justify;
+}
+img{
+    height: 100%;
+    width: 100%;
+    border-radius: 100%;
+}
+
+#description{
+    width:100%;
+    resize: vertical;
+    height: 107px;
+    max-height: 107px;
+}
+

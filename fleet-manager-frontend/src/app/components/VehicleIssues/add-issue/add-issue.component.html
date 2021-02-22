@@ -1,0 +1,42 @@
+<div class="medium-list">
+  <div class="list-viewer-wrapper">
+    <mat-card id="card">
+    <div class="list-header-title">Issue Form</div>
+
+<form [formGroup]="issueForm" class="normal-form" >
+ 
+  <div class="form-container">
+
+          <mat-form-field appearance="fill">
+            <mat-label>Choose vehicle</mat-label>
+            <mat-select formControlName="vehicleId">
+              <mat-option></mat-option>
+              <mat-option [value]="option.id" *ngFor="let option of vehicless">{{ option.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+       <mat-form-field appearance="fill">
+        <input formControlName="part" matInput placeholder="Part of the Issue">  
+        <mat-error>Part is mandatory</mat-error> 
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+         <input formControlName="description" matInput placeholder="Description of the Issue">  
+       </mat-form-field>
+
+        <mat-label appearance="fill"> Status: </mat-label>
+        <mat-radio-group matInput [formControlName]="status"  aria-label="Select an option" >  
+        <mat-radio-button value="Demaged">Demaged</mat-radio-button>
+        <mat-radio-button value="In progress">In progress</mat-radio-button>
+        <mat-radio-button value="Fixed">Fixed</mat-radio-button>
+        </mat-radio-group>
+
+       
+        <button mat-raised-button color="primary" type="submit"  (click)="saveIssue()" >Create</button>
+        <button mat-raised-button color="warn" (click)="onClear()" class="divider">Clear</button>
+       
+      </div>
+</form>
+</mat-card>
+</div>
+</div>

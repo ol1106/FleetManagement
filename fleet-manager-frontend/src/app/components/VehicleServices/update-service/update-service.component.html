@@ -1,0 +1,50 @@
+<!-- Title group 
+<div class="title-group">
+  <h1 class="mat-h1">Add Student</h1>
+  <mat-divider fxFlex="1 0"></mat-divider>
+</div> -->
+
+<!-- Form -->
+<form [formGroup]="serviceForm" class="normal-form" (ngSubmit)="updateService()" #resetServiceForm="ngForm" novalidate >
+  <mat-grid-list cols="2" rowHeight="300px">
+    <mat-grid-tile>
+      <div class="controles-container">
+        <mat-form-field>
+        <input formControlName="name" matInput placeholder="Service Name"> 
+        <mat-error *ngIf="serviceForm.controls['name'].errors?.required">Name is mandatory</mat-error> 
+        <mat-error *ngIf="serviceForm.controls['name'].errors?.minlength">Minimum 3 characters needed</mat-error>
+        <mat-error *ngIf="serviceForm.controls['name'].errors?.maxlength">Maximum 20 characters for name</mat-error> 
+         </mat-form-field>
+      <mat-form-field>
+        <input formControlName="time_freq" matInput placeholder="Time frequency/Month">  
+        <mat-error>Time frequency is mandatory</mat-error> 
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="km_freq" matInput placeholder="Kilometer frequency/Km">  
+        <mat-error>Kilometer frequency is mandatory</mat-error> 
+      </mat-form-field>
+  
+      <mat-form-field class="multiple-items">
+        <mat-chip-list #chipList >
+          <mat-chip *ngFor="let partArray of partsArray" [selectable]="selectable" [removable]="removable"
+          (removed)="remove(partArray)">
+          {{partArray}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input #partsInput matInput [formControl]="partsCtrl" placeholder="Parts of the Service"  [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+        <i class="material-icons tooltip-info" matTooltip="Enter service parts and press enter to add subjects">
+         info
+        </i>
+      </mat-form-field>
+  
+         <div class="button-row">
+           <button mat-flat-button color="warn">Update</button>
+          </div>
+           </div>
+        </mat-grid-tile>
+  </mat-grid-list>
+  </form> 
+

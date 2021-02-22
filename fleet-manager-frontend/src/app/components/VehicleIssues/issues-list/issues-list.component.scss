@@ -1,0 +1,32 @@
+.hide{
+    display:none;
+}
+
+.mat-footer-row mat-footer-cell{
+    justify-content:center;
+    font-style:italic;
+}
+
+table {
+    width: 90%;
+    margin:0 auto;
+  }
+
+  mat-paginator{
+    width: 90%;
+    margin:0 auto;
+    bottom: 0;
+    position: relative;
+    left:0;
+    right:0;
+  }
+
+  .list-header-title{
+    color: rgba(185, 184, 184, 0.54);
+    padding:    20px 30px;
+    font-weight:bold;
+    font-size: 30px;
+    font-style: normal;
+    text-align: center;
+     
+}

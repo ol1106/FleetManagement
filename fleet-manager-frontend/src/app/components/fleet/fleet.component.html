@@ -1,0 +1,153 @@
+
+<div style="width:100%; display: flex;justify-content: space-between">
+  <div style="padding-left: 20px">
+    <h1>{{company?.name}}'s Fleets</h1>
+  </div>
+  <div style="padding-right: 20px;padding-top:10px ">
+    <button mat-mini-fab color="primary" (click)="openAddDialog(addTemplate)">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>
+<mat-divider></mat-divider>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="position">
+    <th mat-header-cell *matHeaderCellDef> <h3>#</h3> </th>
+    <td mat-cell *matCellDef="let element"> {{dataSource.indexOf(element)+1 + page*size}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> <h3>Name</h3> </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="vehicles">
+    <th mat-header-cell *matHeaderCellDef> <h3>Vehicles (Click nr. to show vehicles)</h3> </th>
+    <td mat-cell *matCellDef="let element" ><div style="cursor: pointer;width: 10px" (click)="showVehicles(element.vehicleId,showVehiclesTemplate)"> {{element.vehicleId.length}} </div></td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> <h3>Actions</h3> </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="primary" (click)="editFleet(element,editTemplate)">
+        <mat-icon aria-label="Edit">edit</mat-icon>
+      </button>
+
+      <button mat-icon-button color="warn" (click)="openDialog(element,deleteTemplate)">
+        <mat-icon aria-label="Delete">delete</mat-icon>
+      </button>
+
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>
+
+<mat-paginator
+               [pageSizeOptions]="[5, 10, 25, 100]"
+               [length]="totalElements"
+               [pageSize]="size"
+               (page)="getPage($event)">
+</mat-paginator>
+
+<!--DELETE TEMPLATE-->
+<ng-template #deleteTemplate>
+  <mat-dialog-content style="font-size: 16px">Are you sure you want to delete it?</mat-dialog-content>
+  <mat-dialog-actions style="justify-content: center">
+    <button color="warn" mat-button mat-dialog-close (click)="deleteFleet(toBeDeleted.id)" >Yes</button>
+    <button mat-button mat-dialog-close>No</button>
+  </mat-dialog-actions>
+</ng-template>
+
+<!--EDIT TEMPLATE-->
+<ng-template #editTemplate>
+  <div>
+    <mat-dialog-content style="font-size: 20px"> Edit this fleet
+      <mat-icon style="float: right;cursor: pointer"(click)="closeDialog()">close</mat-icon>
+    </mat-dialog-content>
+  </div>
+  <form style="width: 400px" [formGroup]="formGroup" (ngSubmit)="submitEdit(formGroup.value)">
+    <mat-dialog-content>
+      <mat-form-field style="width: 100%">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" type="text">
+      </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-content>
+      <mat-form-field style="width: 100%" appearance="fill">
+        <mat-label>Vehicles</mat-label>
+        <mat-select formControlName="vehicles" multiple  >
+          <mat-option *ngFor="let vehicle of relatedVehicles" [value]="vehicle">{{vehicle.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-dialog-content>
+    <button mat-flat-button color="primary" type="submit">Submit</button>
+  </form>
+</ng-template>
+
+<!--ADD TEMPLATE-->
+<ng-template #addTemplate>
+  <form style="width: 400px" [formGroup]="formGroup" (ngSubmit)="createFleet(formGroup.value)">
+    <div>
+      <mat-dialog-content style="font-size: 20px"> Add a fleet <mat-icon
+              style="float: right;cursor: pointer"(click)="closeDialog()">close</mat-icon></mat-dialog-content>
+    </div>
+    <mat-dialog-content>
+      <mat-form-field style="width: 100%">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" type="text">
+      </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-content>
+      <mat-form-field style="width: 100%" appearance="fill">
+        <mat-label>Vehicles</mat-label>
+        <mat-select formControlName="vehicles" multiple  >
+          <mat-option *ngFor="let vehicle of unAssignedVehicles" [value]="vehicle">{{vehicle.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-content style="text-align: center">
+      <button mat-flat-button color="primary" type="submit">Submit</button>
+    </mat-dialog-content>
+  </form>
+</ng-template>
+
+<!--SHOW VEHICLES TEMPLATE-->
+<ng-template #showVehiclesTemplate>
+  <table style="width: 900px" mat-table [dataSource]="vehiclesToBeShown" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element"> {{vehiclesToBeShown.indexOf(element)+1}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="consumption">
+      <th mat-header-cell *matHeaderCellDef> Consumption </th>
+      <td mat-cell *matCellDef="let element"> {{element.consumption}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="maxCapacity">
+      <th mat-header-cell *matHeaderCellDef> Maximum Capacity </th>
+      <td mat-cell *matCellDef="let element"> {{element.maxCapacity}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="enginePower">
+      <th mat-header-cell *matHeaderCellDef> Engine Power </th>
+      <td mat-cell *matCellDef="let element"> {{element.enginePower}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="vehiclesColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: vehiclesColumns;"></tr>
+
+  </table>
+
+</ng-template>

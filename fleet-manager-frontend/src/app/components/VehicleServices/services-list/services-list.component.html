@@ -1,0 +1,112 @@
+ <div class="mat-elevation-z8">
+   <div class="list-header-title"> List of Vehicle Services</div>
+    <table mat-table [dataSource] = "listData">
+    <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-cell *matCellDef="let element ">{{element.name}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="time_freq">
+    <mat-header-cell *matHeaderCellDef>Time Frequency</mat-header-cell>
+    <mat-cell *matCellDef="let element ">{{element.time_freq}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="km_freq">
+    <mat-header-cell *matHeaderCellDef>Kilometer Frequency</mat-header-cell>
+    <mat-cell *matCellDef="let element ">{{element.km_freq}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="parts">
+    <mat-header-cell *matHeaderCellDef>Parts</mat-header-cell>
+    <mat-cell *matCellDef="let element ">{{element.parts}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index;">
+        <button mat-icon-button (click)="editService(element,editTemplate)"><mat-icon >mode_edit</mat-icon></button>
+        <button mat-icon-button color="warn" (click)="openDialog(element,deleteTemplate)"><mat-icon>delete_outline</mat-icon></button>
+      </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="loading">
+        <mat-footer-cell *matFooterCellDef colspan="6">Loading data...</mat-footer-cell>
+      </ng-container>
+        <ng-container matColumnDef="noData">
+          <mat-footer-cell *matFooterCellDef colspan="6">No Data</mat-footer-cell>
+         </ng-container>
+    <mat-header-row *matHeaderRowDef= "displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> 
+        </table>
+  <mat-paginator  [pageSizeOptions]="[5, 10, 15]"  [pageSize]="size" [length]="totalElements"  (page)="getPage($event)" showFirstLastButtons></mat-paginator>
+    </div>  
+
+<!--  DELETE TEMPLATE-->
+<ng-template #deleteTemplate>
+  <mat-dialog-content style="font-size: 16px">Are you sure you want to delete it?</mat-dialog-content>
+  <mat-dialog-actions style="justify-content: center">
+    <button color="warn" mat-button mat-dialog-close (click)="deleteServices(toBeDeleted.id)" >Yes</button>
+    <button mat-button mat-dialog-close>No</button>
+  </mat-dialog-actions>
+</ng-template>
+
+
+
+<!--EDIT TEMPLATE-->
+<ng-template #editTemplate>
+  <h1>Edit this Service
+      <mat-icon style="float: right;cursor: pointer"(click)="closeDialog()">close</mat-icon>
+  </h1>
+
+<form [formGroup]="serviceForm" class="normal-form" (ngSubmit)="submitService(serviceForm.value)" #resetServiceForm="ngForm" novalidate >
+
+  <mat-dialog-content>
+    <mat-form-field style="width: 100%" appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" type="text">
+      </mat-form-field>
+     </mat-dialog-content>
+
+     <mat-dialog-content>
+      <mat-form-field style="width: 100%" appearance="fill">
+        <mat-label>Time_Frequency</mat-label>
+        <input matInput formControlName="time_freq" type="text">
+      </mat-form-field>
+       </mat-dialog-content>
+
+       <mat-dialog-content>
+        <mat-form-field style="width: 100%" appearance="fill">
+          <mat-label>Kilometer_Frequency</mat-label>
+          <input matInput formControlName="km_freq" type="text">
+        </mat-form-field>
+         </mat-dialog-content>
+
+         <mat-dialog-content>
+          <mat-form-field class="multiple-items" appearance="fill">
+            <mat-chip-list #chipList >
+              <mat-chip *ngFor="let partArray of partsArray" [selectable]="selectable" [removable]="removable"
+              (removed)="remove(partArray)">
+              {{partArray}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input matInput [formControl]="partsCtrl" placeholder="Parts of the Service" [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="add($event)">
+            </mat-chip-list>
+            <i class="material-icons tooltip-info" matTooltip="Enter service parts and press enter to add parts">
+             info
+            </i>
+          </mat-form-field>
+         </mat-dialog-content>
+
+          <mat-dialog-content style="text-align: center" appearance="fill">
+            <button mat-flat-button color="primary" type="submit">Submit</button>
+        </mat-dialog-content>
+
+    </form>
+  </ng-template>
+  
+
+
+
+
+
+
+
+
+

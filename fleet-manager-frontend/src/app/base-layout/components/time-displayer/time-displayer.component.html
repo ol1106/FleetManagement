@@ -1,0 +1,4 @@
+<div class="date user-button" fxHide fxShow.gt-sm >
+  <p>{{(timeService.timeEmitter | async) | date : 'HH:mm:ss'}}</p>
+  <p>{{(timeService.timeEmitter | async) | date : 'dd.MM.yyyy'}}</p>
+</div>

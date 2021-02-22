@@ -1,0 +1,40 @@
+<form  class="form" (ngSubmit)="saveNewVehicle()">
+    <mat-form-field class="example-form-field">
+        <mat-label>Name of vehicle</mat-label>
+        <input matInput type="text" name="name" [(ngModel)]="vehicle.name">
+       
+      </mat-form-field>
+  <br>
+  <br>
+  <mat-form-field appearance="fill">
+      <mat-label>vehicleClass</mat-label>
+      <mat-select  [(ngModel)]="vehicle.vehicleClassId "  name="vehicleClassId">
+        <mat-option *ngFor="let class of vehicleClassHelper" [value]="class.id" >
+          {{class.id}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  <br>
+  <br>
+  <mat-form-field class="example-form-field">
+      <mat-label>Consumption</mat-label>
+      <input matInput type="number"  name="consumption" [(ngModel)]="vehicle.consumption">
+     
+    </mat-form-field>
+  
+  <br>
+  <br>
+  <mat-form-field class="example-form-field">
+      <mat-label>Maximum Capacity</mat-label>
+      <input matInput type="number"  name="maxCapacity" [(ngModel)]="vehicle.maxCapacity">
+     
+    </mat-form-field>
+  <br>
+  <br>
+  <mat-form-field class="example-form-field">
+      <mat-label>Engine Power</mat-label>
+      <input matInput type="number"  name="enginePower" [(ngModel)]="vehicle.enginePower">
+     
+    </mat-form-field>
+  <button mat-button color="primary" type="submit">ADD VEHICLE</button>
+  </form>

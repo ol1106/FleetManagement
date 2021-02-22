@@ -1,0 +1,120 @@
+<mat-card id="profile-left">
+    <mat-card-title>PROFESSIONAL DETAILS</mat-card-title><br>
+    <mat-card id="profile-picture-noPhoto" *ngIf="noPhoto">
+        <button id="edit-profile-picture" mat-icon-button color="primary" (click)="addPhoto()">
+            <input type="file" accept="image/*" id="photo" required [ngModel]="driver?.profile.photo"
+                    name="image" (change)="updateFile($event)" style="display: none;">
+            <mat-icon>mode_edit</mat-icon>
+        </button>
+    </mat-card>
+    <mat-card id="profile-picture" *ngIf="!noPhoto">
+        <img src="{{driver?.profile?.photo}}" >
+        <button id="edit-profile-picture" mat-icon-button color="primary" (click)="addPhoto()">
+            <input type="file" accept="image/*" id="photo" required [ngModel]="driver?.profile.photo"
+                    name="image" (change)="updateFile($event)" style="display: none;">
+            <mat-icon>mode_edit</mat-icon>
+        </button>
+    </mat-card>
+    <br>
+    <mat-list>
+        <mat-list-item>Name: &nbsp; <strong>{{driver?.name}}</strong> </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Company:&nbsp; <strong>{{companyName}}</strong></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Vehicle: &nbsp;<strong> {{vehicleName}}</strong></mat-list-item>
+    </mat-list>
+</mat-card>
+
+<mat-card *ngIf="!editMode" id="profile-right">
+    <mat-card-title>PERSONAL DETAILS</mat-card-title><br>
+    <mat-list id="list-left">
+        <mat-list-item>Name:&nbsp; <strong>{{driver?.name}}</strong> </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Email:&nbsp; <strong>{{driver?.profile.email}}</strong> </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Phone Nr:&nbsp; <strong>{{driver?.profile?.phoneNr}}</strong></mat-list-item>
+        <mat-divider></mat-divider>
+    </mat-list>
+    <mat-list id="list-right">
+        <mat-list-item>State:&nbsp;<strong> {{driver?.profile?.addressDriver?.state}}</strong></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>City:&nbsp;<strong> {{driver?.profile?.addressDriver?.city}}</strong></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Postal code:&nbsp;<strong> {{driver?.profile?.addressDriver?.postalCode}}</strong></mat-list-item>
+        <mat-divider></mat-divider>
+    </mat-list>
+    <h2><strong> DESCRIPTION </strong></h2>
+    <h3>{{driver?.profile?.description}}</h3>
+    <button id="edit-info" mat-icon-button color="primary" (click)="editForm()">
+        EDIT<mat-icon>mode_edit</mat-icon>
+    </button>
+</mat-card>
+<mat-card *ngIf="editMode" id="profile-right">
+    <mat-card-title>PERSONAL DETAILS</mat-card-title><br>
+    <mat-list id="list-left">
+        <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label><strong>
+            <input type="text" [errorStateMatcher]="matcher" 
+            [formControl]="nameFormControl" name="name" 
+            [errorStateMatcher]="matcher" [(ngModel)]="driver.name" minlength="2"
+            maxlength="20" autocomplete="off" matInput /></strong>
+            <mat-hint></mat-hint>
+            <mat-error *ngIf="nameFormControl.hasError('minlength')">
+                Name must be longer than 2 characters
+            </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" [(ngModel)]="driver.profile.email"
+             placeholder="Ex. pat@example.com" autocomplete="off">
+        <mat-hint></mat-hint>
+        <mat-error *ngIf="emailFormControl.hasError('email')">
+          Please enter a valid email address
+        </mat-error>
+      </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Phone Nr</mat-label><strong>
+                <input type="text" [errorStateMatcher]="matcher" 
+                [formControl]="phoneNumberControl" name="phoneNr" 
+                 [(ngModel)]="driver.profile.phoneNr"
+                autocomplete="off" matInput maxlength="20" placeholder="Ex. 06x123456789"/></strong>
+                <mat-hint></mat-hint>
+                <mat-error *ngIf="phoneNumberControl.hasError('minlength')">
+                    Must be a valid phone number!
+                </mat-error>
+        </mat-form-field>
+    </mat-list>
+    <mat-list id="list-right">
+        <mat-form-field appearance="fill">
+            <mat-label>State</mat-label>
+            <input type="text" name="state"
+            [(ngModel)]="driver.profile.addressDriver.state"  [formControl]="myControl"
+            [matAutocomplete]="auto" matInput />
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>City</mat-label><strong>
+                <input type="text" [errorStateMatcher]="matcher" 
+                name="city" [(ngModel)]="driver.profile.addressDriver.city" minlength="2"
+                 autocomplete="off" matInput /></strong>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Postal Code</mat-label><strong>
+                <input type="number" [errorStateMatcher]="matcher" 
+                name="postal"  [(ngModel)]="driver.profile.addressDriver.postalCode" minlength="2"
+                autocomplete="off" matInput /></strong>
+        </mat-form-field>
+    </mat-list>
+    <mat-form-field class="description-field-edit">
+        <mat-label>Description</mat-label>
+        <textarea id="description" maxlength="100" [(ngModel)]="driver.profile.description" matInput placeholder="Write a description about yourself..."></textarea>
+    </mat-form-field>
+    <button id="edit-info" mat-icon-button color="primary" (click)="finish()">
+        DONE<mat-icon>check</mat-icon>
+    </button>
+</mat-card>
+

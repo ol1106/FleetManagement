@@ -1,0 +1,51 @@
+<div class="medium-list">
+  
+  <div class="list-viewer-wrapper">
+    <mat-card id="card">
+    <div class="list-header-title"> Service Form</div>
+<form [formGroup]="serviceForm"  #resetservicetForm="ngForm" novalidate >
+ 
+ <div class="form-container">
+      <mat-form-field appearance="fill">
+      <input formControlName="name" matInput placeholder="Service Name"> 
+      <mat-error *ngIf="serviceForm.controls['name'].errors?.required">Name is mandatory</mat-error> 
+      <mat-error *ngIf="serviceForm.controls['name'].errors?.minlength">Minimum 3 characters needed</mat-error>
+      <mat-error *ngIf="serviceForm.controls['name'].errors?.maxlength">Maximum 20 characters for name</mat-error> 
+       </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <input formControlName="time_freq" matInput placeholder="Time frequency/Month">  
+      <mat-error>Time frequency is mandatory</mat-error> 
+    </mat-form-field> 
+
+    <mat-form-field appearance="fill">
+      <input formControlName="km_freq" matInput placeholder="Kilometer frequency/Km">  
+      <mat-error>Kilometer frequency is mandatory</mat-error> 
+    </mat-form-field>
+
+    <mat-form-field class="multiple-items" appearance="fill">
+      <mat-chip-list #chipList >
+        <mat-chip *ngFor="let partArray of partsArray" [selectable]="selectable" [removable]="removable"
+        (removed)="remove(partArray)">
+        {{partArray}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input #partsInput matInput [formControl]="partsCtrl" placeholder="Parts of the Service"  [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+      <i class="material-icons tooltip-info" matTooltip="Enter service parts and press enter to add services">
+       info
+      </i>
+    </mat-form-field>
+
+     <button mat-raised-button color="primary" type="submit" [disabled]="serviceForm.invalid" (click)="saveService()" class="divider">Create</button>
+      <button mat-raised-button color="warn" (click)="onClear()" class="divider">Clear</button>
+       
+         </div>   
+</form>
+</mat-card> 
+</div>
+</div>
+
+

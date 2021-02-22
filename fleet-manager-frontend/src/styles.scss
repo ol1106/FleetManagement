@@ -1,0 +1,17 @@
+// Import Fuse core library
+@import "../@fuse/scss/core";
+// Import app.theme.scss
+@import "./app.theme";
+
+* {
+  box-sizing: border-box;
+}
+
+.backdrop-hidden {
+  background-color: transparent;
+}
+
+
+
+
+

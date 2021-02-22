@@ -1,0 +1,224 @@
+/**************************************
+*       Custom Themes                 *
+*       For inner project only        *
+**************************************/
+
+
+$custom-yellow: (
+        50: #f6af05,
+        60: #ca4a1f,
+        contrast: (
+                50: $dark-primary-text,
+                60: $light-primary-text,
+        )
+);
+// Background palette for light themes.
+$custom-light-dark-theme-background: (
+        status-bar: map_get($mat-grey, 300),
+        app-bar:    map_get($mat-grey, 100),
+        background: #f3f3f3,
+        hover:      rgba(black, 0.04), 
+        card:       white,
+        sidebar:    #23282c,
+        dialog:     white,
+        nav-children: #393e42,
+        disabled-button: rgba(black, 0.12),
+        raised-button: white,
+        focused-button: $dark-focused,
+        selected-button: map_get($mat-grey, 300),
+        selected-disabled-button: map_get($mat-grey, 400),
+        disabled-button-toggle: map_get($mat-grey, 400),
+        unselected-chip: map_get($mat-grey, 300),
+        disabled-list-option: map_get($mat-grey, 200),
+);
+// Background palette for light themes.
+$custom-light-theme-background: (
+        status-bar: map_get($mat-grey, 300),
+        app-bar:    map_get($mat-grey, 100),
+        background: #f3f3f3,
+        hover:      rgba(black, 0.04),
+        card:       white,
+        sidebar:    white,
+        dialog:     white,
+        nav-children: map_get($mat-grey, 200),
+        disabled-button: rgba(black, 0.12),
+        raised-button: white,
+        focused-button: $dark-focused,
+        selected-button: map_get($mat-grey, 300),
+        selected-disabled-button: map_get($mat-grey, 400),
+        disabled-button-toggle: map_get($mat-grey, 200),
+        unselected-chip: map_get($mat-grey, 300),
+        disabled-list-option: map_get($mat-grey, 200),
+);
+
+// Background palette for dark themes.
+$custom-dark-grey-theme-background: (
+        status-bar: black,
+        app-bar:    map_get($mat-grey, 900),
+        background: #303030,
+        hover:      rgba(white, 0.04), 
+        card:       map_get($mat-grey, 800),
+        sidebar:    map_get($mat-grey, 800),
+        dialog:     map_get($mat-grey, 800),
+        nav-children: #343434,
+        disabled-button: rgba(white, 0.12),
+        raised-button: map-get($mat-grey, 800),
+        focused-button: $light-focused,
+        selected-button: map_get($mat-grey, 900),
+        selected-disabled-button: map_get($mat-grey, 800),
+        disabled-button-toggle: black,
+        unselected-chip: map_get($mat-grey, 700),
+        disabled-list-option: black,
+);
+
+// Background palette for dark themes.
+$custom-dark-blue-theme-background: (
+        status-bar: black,
+        app-bar:    map_get($mat-grey, 900),
+        background: #1d252a,
+        hover:      rgba(white, 0.04), 
+        card:       #324049,
+        sidebar:    #324049,
+        dialog:     #324049,
+        nav-children: #222c32,
+        disabled-button: rgba(white, 0.12),
+        raised-button: map-get($mat-grey, 800),
+        focused-button: $light-focused,
+        selected-button: #324049,
+        selected-disabled-button: #324049,
+        disabled-button-toggle: black,
+        unselected-chip: #354352,
+        disabled-list-option: black,
+);
+
+// Foreground palette for light themes.
+$custom-light-theme-foreground: (
+        base:              black,
+        divider:           $dark-dividers,
+        dividers:          $dark-dividers,
+        disabled:          $dark-disabled-text,
+        disabled-button:   rgba(black, 0.26),
+        disabled-text:     $dark-disabled-text,
+        elevation:         black,
+        hint-text:         $dark-disabled-text,
+        secondary-text:    $dark-secondary-text,
+        icon:              rgba(black, 0.54),
+        icons:             rgba(black, 0.54),
+        nav-icons:         #666666,
+        nav-text:          black,
+        text:              rgba(black, 0.87),
+        slider-min:        rgba(black, 0.87),
+        slider-off:        rgba(black, 0.26),
+        slider-off-active: rgba(black, 0.38),
+);
+
+// Foreground palette for light themes.
+$custom-light-dark-theme-foreground: (
+        base:              black,
+        divider:           $dark-dividers,
+        dividers:          $light-dividers,
+        disabled:          $dark-disabled-text,
+        disabled-button:   rgba(black, 0.26),
+        disabled-text:     $dark-disabled-text,
+        elevation:         black,
+        hint-text:         $light-disabled-text,
+        secondary-text:    rgba(127,127,127,0.7),
+        icon:              rgba(black, 0.54),
+        icons:             rgba(black, 0.54),
+        nav-icons:         #a9b2ba,
+        nav-text:          white,
+        text:              rgba(black, 0.87),
+        slider-min:        rgba(black, 0.87),
+        slider-off:        rgba(black, 0.26),
+        slider-off-active: rgba(black, 0.38),
+);
+
+// Foreground palette for dark themes.
+$custom-dark-grey-theme-foreground: (
+        base:              white,
+        divider:           $light-dividers,
+        dividers:          $light-dividers,
+        disabled:          $light-disabled-text,
+        disabled-button:   rgba(white, 0.3),
+        disabled-text:     $light-disabled-text,
+        elevation:         black,
+        hint-text:         $light-disabled-text,
+        secondary-text:    $light-secondary-text,
+        icon:              white,
+        icons:             white,
+        nav-icons:         #a0a0a0,
+        nav-text:          white,
+        text:              white,
+        slider-min:        white,
+        slider-off:        rgba(white, 0.3),
+        slider-off-active: rgba(white, 0.3),
+);
+
+// Foreground palette for dark themes.
+$custom-dark-blue-theme-foreground: (
+        base:              white,
+        divider:           $light-dividers,
+        dividers:          $light-dividers,
+        disabled:          $light-disabled-text,
+        disabled-button:   rgba(white, 0.3),
+        disabled-text:     $light-disabled-text,
+        elevation:         black,
+        hint-text:         $light-disabled-text,
+        secondary-text:    $light-secondary-text,
+        icon:              white,
+        icons:             white,
+        nav-icons:         #617b8c,
+        nav-text:          white,
+        text:              #ededed,
+        slider-min:        white,
+        slider-off:        rgba(white, 0.3),
+        slider-off-active: rgba(white, 0.3),
+);
+
+// Creates a container object for a light theme to be given to individual component theme mixins.
+@function custom-light-theme($primary, $accent, $warn: mat-palette($mat-red)) {
+  @return (
+          primary: $primary,
+          accent: $accent,
+          warn: $warn,
+          is-dark: false,
+          foreground: $custom-light-theme-foreground,
+          background: $custom-light-theme-background,
+  );
+}
+
+// Creates a container object for a light theme to be given to individual component theme mixins.
+@function custom-light-dark-theme($primary, $accent, $warn: mat-palette($mat-red)) {
+  @return (
+          primary: $primary,
+          accent: $accent,
+          warn: $warn,
+          is-dark: false,
+          foreground: $custom-light-dark-theme-foreground,
+          background: $custom-light-dark-theme-background,
+  );
+}
+
+// Creates a container object for a dark-gey theme to be given to individual component theme mixins.
+@function custom-dark-grey-theme($primary, $accent, $warn: mat-palette($mat-red)) {
+  @return (
+          primary: $primary,
+          accent: $accent,
+          warn: $warn,
+          is-dark: true,
+          foreground: $custom-dark-grey-theme-foreground,
+          background: $custom-dark-grey-theme-background,
+  );
+}
+
+// Creates a container object for a dark-gey theme to be given to individual component theme mixins.
+@function custom-dark-blue-theme($primary, $accent, $warn: mat-palette($mat-red)) {
+  @return (
+          primary: $primary,
+          accent: $accent,
+          warn: $warn,
+          is-dark: true,
+          foreground: $custom-dark-blue-theme-foreground,
+          background: $custom-dark-blue-theme-background,
+  );
+}

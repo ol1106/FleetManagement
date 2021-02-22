@@ -1,0 +1,29 @@
+<div class="navbar-header" [ngClass]="fuseConfig.layout.navbar.secondaryBackground">
+
+    <button mat-icon-button class="toggle-sidebar-folded"
+            (click)="toggleSidebarOpened()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <div class="logo">
+        <img class="logo-icon"
+             src="../../../../../../assets/images/logos/{{fuseConfig.colorTheme.indexOf('dark') == -1? 'tunnel_sight.svg':'tunnel_sight_dark.svg'}}">
+    </div>
+
+</div>
+
+<div class="navbar-content" fusePerfectScrollbar [fusePerfectScrollbarOptions]="{suppressScrollX: true}"
+     [ngClass]="fuseConfig.layout.navbar.primaryBackground">
+    <fuse-navigation layout="vertical"></fuse-navigation>
+</div>
+
+<button mat-button class="toggle-sidebar-folded"
+        fxHide fxShow.gt-md
+        (click)="toggleSidebarFolded()"
+        [ngStyle]="{textAlign: isSidebarFolded? 'center':'right'}"
+        [title]="isSidebarFolded? 'Unfold':'Fold'">
+    <i class="fa fa-angle-double-{{isSidebarFolded? 'right':'left'}}"></i>
+</button>
+
+<!--<button mat-button class="apps-button">-->
+<!--<mat-icon>apps</mat-icon>-->
+<!--</button>-->

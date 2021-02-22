@@ -1,0 +1,73 @@
+<form name="form" *ngIf="!isRegistered" (ngSubmit)="f1.form.valid && onSubmit()" #f1="ngForm" novalidate>
+    <mat-card id="card">
+      <mat-card-title>New driver</mat-card-title>
+          <mat-form-field appearance="fill">
+            <mat-label>Username</mat-label>
+            <input type="text" [formControl]="usernameFormControl" name="username" [errorStateMatcher]="matcher" [(ngModel)]="form.username" required minlength="3"
+            maxlength="20" autocomplete="off" matInput />
+            <mat-error *ngIf="usernameFormControl.hasError('required')">
+              Username is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="usernameFormControl.hasError('minlength')">
+              Username must be longer than 3 characters
+            </mat-error>
+          </mat-form-field>
+          <br>
+            <mat-form-field appearance="fill">
+              <mat-label>Email</mat-label>
+              <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" [(ngModel)]="form.email"
+                   required  placeholder="Ex. pat@example.com" autocomplete="off">
+              <mat-hint></mat-hint>
+              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                Please enter a valid email address
+              </mat-error>
+              <mat-error *ngIf="emailFormControl.hasError('required')">
+                Email is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Password</mat-label>
+            <input type="password" [formControl]="passwordFormControl" [errorStateMatcher]="matcher" name="password" [(ngModel)]="form.password" required minlength="6"
+            matInput />
+            <mat-error *ngIf="passwordFormControl.hasError('required')">
+              Password is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="passwordFormControl.hasError('minlength')">
+             Password must be longer than 6 characters
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <button class="btn" mat-button color="primary">Next<mat-icon aria-hidden="false">navigate_next</mat-icon></button>
+      </mat-card>
+</form>
+<form name="form" *ngIf="isRegistered" (ngSubmit)="f2.form.valid && addDriver()" #f2="ngForm" novalidate>
+    <mat-card>
+    <h1>Driver Info</h1>
+        <div class="form-group">
+          <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input type="text" [formControl]="nameFormControl" name="name" [errorStateMatcher]="matcher" [(ngModel)]="driver.name" required minlength="2"
+            maxlength="20" autocomplete="off" matInput />
+            <mat-error *ngIf="usernameFormControl.hasError('required')">
+              Name is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="usernameFormControl.hasError('minlength')">
+              Name must be longer than 2 characters
+            </mat-error>
+          </mat-form-field> 
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="fill" >
+            <mat-label>Select a vehicle</mat-label>
+            <mat-select name="vehicleId" id="vehicleId"  required [(ngModel)]="driver.vehicleId">
+              <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.id">{{vehicle.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        
+        </div>
+        <div class="form-group">
+          <button class="btn" mat-button color="primary">Finish<mat-icon aria-hidden="false">check</mat-icon></button>
+        </div>
+      </mat-card>
+</form>

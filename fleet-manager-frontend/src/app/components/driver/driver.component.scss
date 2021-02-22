@@ -1,0 +1,30 @@
+table {
+    width: 90%;
+    margin:0 auto;
+  }
+
+  mat-paginator{
+    width: 90%;
+    margin:0 auto;
+    bottom: 0;
+    position: absolute;
+    left:0;
+    right:0;
+  }
+  .mat-column-select {
+    overflow: initial;
+  }
+
+  mat-card-title{
+    text-align: center;
+    margin-bottom: 20px;
+}
+mat-form-field{
+    max-width: 100%;
+    width:300px;
+    margin-bottom:17px;
+    margin:0 auto;
+}
+h1{
+  text-align: center;
+}

@@ -1,0 +1,33 @@
+@import "../../../../@fuse/scss/fuse";
+
+mat-card{
+    width: 50px;
+    margin:0 auto;
+    margin-top:50px;
+    align-items: center;
+    align-content: center;
+    min-width: 250px;
+    
+}
+.btn{
+    margin-left:60px;
+    font-size:20px;
+    margin-bottom: 15px;
+    margin-top: 30px;
+    width:100px;
+    margin:0 auto;
+    display: block;
+}
+
+h1{
+    font-size: 20px;
+    text-align: center;
+    top:50px;
+}
+
+mat-form-field{
+    max-width: 100%;
+    width:300px;
+    margin-bottom:17px;
+    margin:0 auto;
+}

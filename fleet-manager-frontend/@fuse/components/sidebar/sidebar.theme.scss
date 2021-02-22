@@ -1,0 +1,25 @@
+@mixin fuse-sidebar-theme($theme) {
+
+    $background: map-get($theme, background);
+    $foreground: map-get($theme, foreground);
+
+    fuse-sidebar {
+        background: map-get($background, sidebar);
+        color: map-get($foreground, nav-text);
+
+        .mat-icon {
+            color: map-get($foreground, nav-icons);
+        }
+        .fa {
+            color: map-get($foreground, nav-icons);
+        }
+    }
+
+    .fuse-sidebar-overlay {
+        background-color: rgba(0, 0, 0, 0.6);
+
+        &.fuse-sidebar-overlay-invisible {
+            background-color: transparent;
+        }
+    }
+}

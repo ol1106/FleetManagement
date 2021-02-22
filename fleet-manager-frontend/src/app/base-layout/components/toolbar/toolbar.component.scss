@@ -1,0 +1,83 @@
+@import "../../../../../@fuse/scss/fuse";
+
+toolbar {
+    position: relative;
+    display: flex;
+    flex: 0 0 auto;
+    z-index: 4;
+
+    &.below {
+        z-index: 2;
+    }
+
+    .mat-toolbar {
+        position: relative;
+        background: inherit !important;
+        color: inherit !important;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+
+        .logo-icon {
+            width: 125px;
+        }
+    }
+
+    .user-button,
+    .apps-button,
+    fuse-search-bar,
+    .quick-panel-toggle-button {
+        min-width: 64px;
+        height: 64px;
+
+        @include media-breakpoint('xs') {
+            height: 56px;
+        }
+    }
+
+    .navbar-toggle-button {
+        min-width: 56px;
+        height: 56px;
+    }
+
+    .toolbar-separator {
+        height: 64px;
+        width: 1px;
+
+        @include media-breakpoint('xs') {
+            height: 56px;
+        }
+    }
+
+    //.apps-button {
+    //    .mat-icon {
+    //        font-size: 30px;
+    //    }
+    //}
+
+    .user-data {
+        display: flex;
+        flex-direction: column;
+        height: fit-content;
+
+        .triangle-top {
+            position: relative;
+            left: 40%;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+
+            border-bottom: 10px solid black;
+        }
+    }
+
+    .menu-selected {
+        margin-top: 10px;
+    }
+}
+.mat-menu-item{
+  min-width: 180px !important;
+}

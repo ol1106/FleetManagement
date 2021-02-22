@@ -1,0 +1,55 @@
+@mixin toolbar-theme($theme) {
+
+    $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
+
+    toolbar {
+
+      color: map-get($foreground,nav-icons);
+
+        .mat-toolbar {
+          box-shadow: none !important;
+        }
+
+        .toolbar-separator {
+            background: map-get($foreground, divider);
+        }
+
+        .username {
+            font-size: 19px;
+        }
+
+        .mat-icon {
+          color: map-get($foreground, nav-icons);
+        }
+
+        .date {
+            margin-top: 27px;
+
+            p {
+                font-size: 17px;
+                margin: 0;
+                padding: 0 15px 0 5px;
+                text-align: right;
+                line-height: 20px;
+            }
+        }
+
+      .triangle-top {
+        border-bottom-color: map-get($background, card);
+      }
+
+      .menu-selected {
+        color: #f5bd34;
+
+        .mat-icon {
+          color: #f5bd34;
+        }
+      }
+
+      .menu-selected:parent {
+
+      }
+
+    }
+}

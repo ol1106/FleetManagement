@@ -1,0 +1,83 @@
+<mat-toolbar class="p-0 mat-elevation-z1">
+
+    <div fxFlex fxFill fxLayout="row" fxLayoutAlign="start center">
+
+        <div fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start center">
+            <button mat-icon-button class="navbar-toggle-button"
+                    *ngIf="isLoggedIn && !isSidebarOpened" (click)="toggleSidebarOpened()">
+                <mat-icon class="secondary-text">menu</mat-icon>
+            </button>
+
+            <div fxLayout="row" fxLayoutAlign="start center" *ngIf="isSidebarFolded">
+                <div class="logo ml-16">
+                    <img class="logo-icon"
+                         src="../../../../assets/images/logos/{{theme.indexOf('light') > -1? 'tunnel_sight.svg':'tunnel_sight_dark.svg'}}">
+                </div>
+            </div>
+        </div>
+
+        <div class="" fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="start center">
+
+            <!--<fuse-search-bar (input)="search($event)"></fuse-search-bar>-->
+
+            <button mat-icon-button class="apps-button" *ngIf="isLoggedIn">
+                <mat-icon>apps</mat-icon>
+            </button>
+
+
+            <div #notificationButton class="user-data" *ngIf="isLoggedIn"
+                 [ngClass]="notificationRef && notificationRef.componentInstance? 'menu-selected': ''">
+                <button mat-icon-button
+                        class="quick-panel-toggle-button"
+
+                        (click)="loadNotifications()"
+                        aria-label="Toggle quick panel">
+                    <mat-icon class="secondary-text"
+                              matBadge="0"
+                              matBadgeOverlap="true"
+                              matBadgeColor="warn"
+                              matBadgePosition="after"
+                    >notifications
+                    </mat-icon>
+                </button>
+                <div class="triangle-top" *ngIf="notificationRef && notificationRef.componentInstance"></div>
+            </div>
+
+            <div class="user-data" *ngIf="isLoggedIn"
+                 [ngClass]="userMenuTriger.menuOpen? 'menu-selected': ''"
+                 [matMenuTriggerFor]="userMenu" #userMenuTriger="matMenuTrigger">
+                <button mat-button class="user-button">
+                    <span class="username mr-12">
+                       {{name}}
+                    </span>
+                </button>
+                <div class="triangle-top" *ngIf="userMenuTriger.menuOpen"></div>
+            </div>
+            <mat-menu #userMenu="matMenu" [xPosition]="'before'" [yPosition]="'below'">
+                <button mat-menu-item [disabled]="true">
+                    <mat-icon>account_circle</mat-icon>
+                    <span *ngFor="let role of roles">{{role}}</span>
+                </button>
+                <mat-divider></mat-divider>
+                <button *ngIf="showProfile" mat-menu-item class="" [routerLink]="['profile']">
+                    <mat-icon>person</mat-icon>
+                    <span>Profile</span>
+                </button>
+                <button mat-menu-item class="" (click)="logout()">
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span>Logout</span>
+                </button>
+            </mat-menu>
+
+            <time-displayer></time-displayer>
+
+            <button mat-icon-button class="navbar-toggle-button"
+                    *ngIf="!hiddenNavbar && rightNavbar" (click)="toggleSidebarOpen('navbar')" fxHide.gt-md>
+                <mat-icon class="secondary-text">menu</mat-icon>
+            </button>
+
+        </div>
+
+    </div>
+
+</mat-toolbar>

@@ -1,0 +1,43 @@
+<form [formGroup]="issueForm" class="normal-form" (ngSubmit)="updateIssue()" #resetissueForm="ngForm" novalidate>
+  <mat-grid-list cols="2" rowHeight="300px">
+    <mat-grid-tile>
+      <div class="controles-container">
+
+          <mat-form-field>
+          <mat-label>VehicleId</mat-label>
+          <mat-select formControlName="vehicleId" [(value)]="selected" >
+          <mat-option [value]="vehicleArray" *ngFor="let vehicleArray of VehicleArray">{{vehicleArray}}
+          </mat-option>
+          </mat-select>
+            <mat-error *ngIf="handleError('vehicleId', 'required')">
+              VehicleId is required
+            </mat-error> 
+         </mat-form-field> 
+
+       <mat-form-field>
+        <input formControlName="part" matInput placeholder="Part of the Issue">  
+        <mat-error>Part is mandatory</mat-error> 
+      </mat-form-field>
+
+      <mat-form-field>
+        <input formControlName="description" matInput placeholder="Description of the Issue">  
+      </mat-form-field>
+
+       <mat-form-field class="misc-bottom-padding" >
+         <mat-label> Status: </mat-label>
+        <input formControlName="status" matInput> 
+        <mat-radio-group formControlName="status"  aria-label="Select an option" >  
+        <mat-radio-button value="Demaged">Demaged</mat-radio-button>
+        <mat-radio-button value="In progress">In progress</mat-radio-button>
+        <mat-radio-button value="Fixed">Fixed</mat-radio-button>
+        </mat-radio-group>
+       </mat-form-field> 
+       <div class="button-row">
+      <button button mat-flat-button color="warn">Update</button>
+      </div>
+            </div>
+        </mat-grid-tile> 
+  </mat-grid-list> 
+
+  </form>
+

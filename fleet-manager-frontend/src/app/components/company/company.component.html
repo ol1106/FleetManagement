@@ -1,0 +1,142 @@
+
+<div style="width:100%; display: flex;justify-content: space-between">
+    <div style="padding-left: 20px">
+        <h1>All Companies</h1>
+    </div>
+</div>
+
+<mat-divider></mat-divider>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> <h3>#</h3> </th>
+        <td mat-cell *matCellDef="let element"> {{dataSource.indexOf(element)+1 + page*size}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="logo">
+        <th mat-header-cell *matHeaderCellDef> <h3>Logo</h3> </th>
+        <td mat-cell *matCellDef="let element">
+            <img *ngIf="element.logo!=null" style="width: 40px ; height: 40px"src="{{element.logo}}">
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> <h3>Name</h3> </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+
+
+    <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef> <h3>Address(State, City, Postal Code)</h3> </th>
+        <td mat-cell *matCellDef="let element"> {{element.address?.state}}, {{element.address?.city}}, {{element.address?.postalCode}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> <h3>Email</h3> </th>
+        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> <h3>Description</h3> </th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> <h3>Actions</h3> </th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="primary" (click)="editCompany(element,editTemplate)">
+                <mat-icon aria-label="Edit">edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="openDialog(element,deleteTemplate)">
+                <mat-icon aria-label="Delete">delete</mat-icon>
+            </button>
+            <button mat-icon-button style="color: cornflowerblue" (click)="photoDialog(element, logoTemplate)" >
+                <mat-icon aria-label="Assign logo">insert_photo</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>
+<mat-paginator
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        [length]="totalElements"
+        [pageSize]="size"
+        (page)="getPage($event)">
+</mat-paginator>
+
+<!--DELETE TEMPLATE-->
+<ng-template #deleteTemplate>
+    <mat-dialog-content style="font-size: 16px">Are you sure you want to delete it?</mat-dialog-content>
+    <mat-dialog-actions style="justify-content: center">
+        <button color="warn" mat-button mat-dialog-close (click)="deleteCompany(toBeDeleted.id)" >Yes</button>
+        <button mat-button mat-dialog-close>No</button>
+    </mat-dialog-actions>
+</ng-template>
+
+<!--EDIT TEMPLATE-->
+<ng-template #editTemplate>
+    <h1>Edit this company
+        <mat-icon style="float: right;cursor: pointer"(click)="closeDialog()">close</mat-icon>
+    </h1>
+
+    <form style="width: 400px" [formGroup]="formGroup" (ngSubmit)="submitEdit(formGroup.value)">
+        <mat-dialog-content>
+            <mat-form-field style="width: 100%">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" type="text">
+            </mat-form-field>
+        </mat-dialog-content>
+        <mat-dialog-content>
+            <mat-form-field style="width: 100%">
+                <mat-label>State</mat-label>
+                <input matInput formControlName="state" type="text">
+            </mat-form-field>
+        </mat-dialog-content>
+        <mat-dialog-content>
+            <mat-form-field style="width: 100%">
+                <mat-label>City</mat-label>
+                <input matInput formControlName="city" type="text">
+            </mat-form-field>
+        </mat-dialog-content>
+        <mat-dialog-content>
+            <mat-form-field style="width: 100%">
+                <mat-label>Postal Code</mat-label>
+                <input matInput formControlName="postalCode" type="number">
+            </mat-form-field>
+        </mat-dialog-content>
+        <mat-dialog-content>
+            <mat-form-field style="width: 100%">
+                <mat-label>E-mail</mat-label>
+                <input matInput formControlName="email" type="email">
+            </mat-form-field>
+        </mat-dialog-content>
+        <mat-dialog-content>
+            <mat-form-field style="width: 100%">
+                <mat-label>Description</mat-label>
+                <input matInput formControlName="description" type="text">
+            </mat-form-field>
+        </mat-dialog-content>
+
+        <mat-dialog-content style="text-align: center">
+            <button mat-flat-button color="primary" type="submit">Submit</button>
+        </mat-dialog-content>
+    </form>
+</ng-template>
+
+<ng-template #logoTemplate>
+    <div style="text-align: center;padding-bottom: 20px"><label for="file" style="font-size: 16px;text-align: center">Select a logo
+    </label><mat-icon style="float: right;cursor: pointer"(click)="closeDialog()">close</mat-icon></div>
+    <div class="form-group" style="text-align: center">
+
+        <input type="file"
+               id="file"
+               (change)="handleFileInput($event.target.files)">
+    </div>
+    <div style="text-align: center;padding-top: 20px"><button mat-flat-button color="primary" (click)="upload()">Submit</button></div>
+</ng-template>

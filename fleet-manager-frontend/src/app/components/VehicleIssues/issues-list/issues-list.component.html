@@ -1,0 +1,107 @@
+<div class="mat-elevation-z8">
+  <div class="list-header-title"> List of Vehicle Issues</div>
+  <table mat-table [dataSource] = "listData">
+    
+    <!-- <ng-container matColumnDef="vehicleId"> 
+      <mat-header-cell *matHeaderCellDef>Vehicle Id</mat-header-cell>
+      <mat-cell *matCellDef="let element  ">{{element?.vehicleId}}</mat-cell>  
+    </ng-container> -->
+
+    <ng-container matColumnDef="part">
+      <mat-header-cell *matHeaderCellDef>Part</mat-header-cell>
+      <mat-cell *matCellDef="let element ">{{element?.part}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+        <mat-cell *matCellDef="let element ">{{element?.status}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+          <mat-cell *matCellDef="let element ">{{element?.description}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+              <mat-cell *matCellDef="let element; let i = index;">
+              <button mat-icon-button (click)="editIssue(element,editTemplate)"><mat-icon>mode_edit</mat-icon></button>
+              <button mat-icon-button color="warn" (click)="deleteIssue(i, element)"><mat-icon>delete_outline</mat-icon></button>
+            </mat-cell>
+            </ng-container>
+          <ng-container matColumnDef="loading">
+            <mat-footer-cell *matFooterCellDef colspan="6">Loading data...</mat-footer-cell>
+          </ng-container>
+            <ng-container matColumnDef="noData">
+              <mat-footer-cell *matFooterCellDef colspan="6">No Data</mat-footer-cell>
+             </ng-container>
+             <mat-header-row *matHeaderRowDef= "displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  <!-- <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row> -->
+  <!-- <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(listData!=null && listData.data.length==0)}"></mat-footer-row> -->
+  </table>
+  <mat-paginator  [pageSizeOptions]="[5, 10, 15]"  [pageSize]="size" [length]="totalElements"  (page)="getPage($event)" showFirstLastButtons></mat-paginator>
+</div>
+
+
+<!--  DELETE TEMPLATE-->
+<ng-template #deleteDialog>
+  <mat-dialog-content style="font-size: 16px">Are you sure you want to delete it?</mat-dialog-content>
+  <mat-dialog-actions style="justify-content: center">
+    <button color="warn" mat-button matDialogClose="yes" >Yes</button>
+    <button mat-button matDialogClose="no">No</button>
+  </mat-dialog-actions>
+</ng-template>
+
+<!--EDIT TEMPLATE-->
+<ng-template #editTemplate>
+  <h1>Edit this Issue
+      <mat-icon style="float: right;cursor: pointer" (click)="closeDialog()">close</mat-icon>
+  </h1>
+  <form [formGroup]="issueForm" class="normal-form" (ngSubmit)="submitIssue(issueForm.value)" novalidate>
+    
+    <mat-dialog-content appearance="fill">
+      <mat-form-field style="width: 100%">
+        <mat-label>Part of the Issue</mat-label>
+        <input matInput formControlName="part" type="text">
+        </mat-form-field>
+       </mat-dialog-content>
+   
+       <mat-dialog-content appearance="fill">
+        <mat-form-field style="width: 100%">
+          <mat-label>Description</mat-label>
+          <input matInput formControlName="description" type="text">
+          </mat-form-field>
+         </mat-dialog-content>
+
+         <mat-dialog-content appearance="fill">
+           <mat-label>Status</mat-label>
+            <mat-radio-group matInput [formControlName]="status"  aria-label="Select an option" >  
+              <mat-radio-button value="Demaged">Demaged</mat-radio-button>
+               <mat-radio-button value="Inprogress">Inprogress</mat-radio-button> 
+              <mat-radio-button value="Fixed">Fixed</mat-radio-button>
+              </mat-radio-group>
+           </mat-dialog-content>
+
+<!-- <mat-dialog-content>
+           <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="favouriteStatus">
+           <mat-radio-button class="example-radio-button" *ngFor="let element of status" [value]="element">
+           {{element}}
+          </mat-radio-button>
+         </mat-radio-group>
+         </mat-dialog-content> -->
+
+           <mat-dialog-content style="text-align: center" appearance="fill">
+            <button mat-flat-button color="primary" type="submit">Submit</button>
+        </mat-dialog-content>
+      </form>
+    </ng-template>
+    
+
+
+
+
+
+
+
+
+

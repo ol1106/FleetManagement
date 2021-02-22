@@ -1,0 +1,30 @@
+@import "../../../../@fuse/scss/fuse";
+
+.register-container{
+    margin-left:35%;
+    margin-top:100px;
+    width:24%;
+    height: 65%;
+    box-shadow: 0 0 10px#FFFFFF1A;
+    border-radius: 5px;
+    align-content:center;
+    align-items: center;
+    padding: 50px;
+    position: fixed;
+}
+
+.btn{
+    margin-left:24px;
+    font-size:20px;
+    margin-bottom: 15px;
+}
+
+h1{
+    font-size: 20px;
+    text-align: center;
+    top:50px;
+}
+
+.form-group{
+    margin-bottom: 15px;
+}

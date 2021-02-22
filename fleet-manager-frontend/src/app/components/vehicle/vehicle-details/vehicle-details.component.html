@@ -1,0 +1,19 @@
+{{vehicleDetail?.id}}
+<mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{vehicleDetail?.id}}</mat-card-title>
+    <mat-card-subtitle>{{vehicleDetail?.name}}</mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      
+    </mat-card-content>
+    <mat-card-actions>
+        <button (click)="DeleteVehicle(vehicleDetail?.id)" mat-raised-button color="warn">Delete</button>
+        <!-- <button (click)="Update(vehicleDetail?.id)" mat-raised-button color="orange">Update</button> -->
+
+
+      
+    </mat-card-actions>
+  </mat-card>

@@ -1,0 +1,100 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="position">
+    <th mat-header-cell *matHeaderCellDef> No. </th>
+    <td mat-cell *matCellDef="let i=index"> {{i+1}} </td>
+  </ng-container>
+  
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <!-- Email Column -->
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef> Email </th>
+    <td mat-cell *matCellDef="let element"> {{element.profile.email}} </td>
+  </ng-container>
+
+  <!-- Phone Nr Column -->
+  <ng-container matColumnDef="phoneNr">
+    <th mat-header-cell *matHeaderCellDef> Phone Number </th>
+    <td mat-cell *matCellDef="let element"> {{element.profile.phoneNr}} </td>
+  </ng-container>
+
+  <!-- State Column -->
+  <ng-container matColumnDef="state">
+    <th mat-header-cell *matHeaderCellDef> State </th>
+    <td mat-cell *matCellDef="let element"> {{element.profile.addressDriver.state}} </td>
+  </ng-container>
+
+  <!-- City Column -->
+  <ng-container matColumnDef="city">
+    <th mat-header-cell *matHeaderCellDef> City </th>
+    <td mat-cell *matCellDef="let element"> {{element.profile.addressDriver.city}} </td>
+  </ng-container>
+
+  <!-- Vehicle Column -->
+  <!-- <ng-container matColumnDef="vehicleId">
+    <th mat-header-cell *matHeaderCellDef> Vehicle ID</th>
+    <td mat-cell *matCellDef="let element"> {{element.vehicleId}} </td>
+  </ng-container> -->
+
+  <!-- Update Column -->
+  <ng-container matColumnDef="update">
+    <th mat-header-cell *matHeaderCellDef> Update </th>
+    <td mat-cell *matCellDef="let element; let i = index;">   
+      <button mat-icon-button (click)="updateDriver(element)"><mat-icon >mode_edit</mat-icon></button>    
+    </td>
+  </ng-container>
+
+  <!-- Delete Column -->
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef> Delete </th>
+    <td mat-cell *matCellDef="let element; let i = index;">   
+      <button mat-icon-button color="warn" (click)="deleteDriver(i,element)"><mat-icon>delete_outline</mat-icon></button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+</table>
+<mat-paginator [pageSize]="5" [pageSizeOptions]="[1,5,9]" showFirstLastButtons></mat-paginator>
+
+<ng-template #deleteDialog>
+  <h2 matDialogTitle>Are you sure you want to delete this driver?</h2>
+  <mat-dialog-actions >
+      <button mat-button matDialogClose="no">No</button>
+      <button mat-button matDialogClose="yes" cdkFocusInitial>Yes</button>
+  </mat-dialog-actions>
+</ng-template>
+
+<ng-template #updateDialog>
+  <h1>Update Driver</h1>
+    <div class="form-group" *ngIf="driver">
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input type="text" [formControl]="nameFormControl" name="name" [errorStateMatcher]="matcher"
+          [(ngModel)]="driver.name" required minlength="2" maxlength="20" autocomplete="off" matInput />
+        <mat-error *ngIf="nameFormControl.hasError('required')">
+          Name is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="nameFormControl.hasError('minlength')">
+          Name must be longer than 2 characters
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form-group" *ngIf="driver">
+      <mat-form-field appearance="fill">
+        <mat-label>Select a vehicle</mat-label>
+        <mat-select name="vehicleId" id="vehicleId" required [(ngModel)]="driver.vehicleId">
+          <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.id">{{vehicle?.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <button mat-button matDialogClose="no">Cancel</button>
+    <button mat-button matDialogClose="yes" cdkFocusInitial color="primary">Update</button>
+</ng-template>

@@ -1,0 +1,35 @@
+@mixin dss-tables($theme) {
+
+  $background:  map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  .dss-table {
+    .mat-table-row {
+      background: map-get($background, background);
+      border-color: map-get($foreground, divider);
+    }
+  }
+}
+
+.dss-table {
+  .mat-table-row, .mat-table-header {
+    margin: 4px 0;
+  }
+
+  .mat-table-header {
+    border: 0;
+    .mat-header-cell {
+      font-size: 15px;
+    }
+  }
+
+  .mat-table-row {
+    .mat-cell {
+      font-size: 13px;
+    }
+  }
+
+  .mat-icon {
+    font-size: 18px;
+  }
+}
